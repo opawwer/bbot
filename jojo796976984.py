@@ -1,11 +1,18 @@
+import os
 import disnake
 from disnake.ext import commands, tasks
+from discord.ext.commands import BucketType
 import random
 import sqlite3
 import datetime
 from datetime import timedelta
 import asyncio
 import uuid
+import configparser
+
+config = configparser.ConfigParser()
+config.read('C:\Users\Alen\Documents\GitHub\bbot\config.ini')
+TOKEN = config.get('Credentials', 'TOKEN')
 
 bot = commands.Bot(command_prefix="!", help_command=None, intents=disnake.Intents.all())
 connection = sqlite3.connect('jojo.db')
@@ -247,6 +254,7 @@ async def ранг(ctx, member: disnake.Member=None):
             await ctx.reply(embed=disnake.Embed(description=f"Уровень участника <@{member.id}>- 10"))
 
 @bot.command()
+@commands.cooldown(1, 300, BucketType.user)  # rate of 1 per 300 seconds (5 minutes) per user
 async def рыбачить(ctx):
     cursor.execute("SELECT lvl FROM lvl WHERE id = ?", (ctx.author.id,))
     lvl = cursor.fetchone()[0]
@@ -409,7 +417,10 @@ async def рыбачить(ctx):
             cursor.execute(f"UPDATE lvl SET lvl = lvl + {1} WHERE id = {ctx.author.id}")
             connection.commit()
 
-
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandOnCooldown):
+        await ctx.send('Команда на кулдауне, попробуйте через {:.2f}с'.format(error.retry_after))
         
 
 
@@ -432,5 +443,4 @@ async def рыбачить(ctx):
 
 
 
-
-bot.run("MTEyODY1MDAzNTY0Nzc0NjE4OQ.GkqFu0.oQ-v2A9n-ozsn3Ut9v0UvUBnmh15KHnPZRG8Ng")
+bot.run(TOKEN)
