@@ -8,11 +8,6 @@ import datetime
 from datetime import timedelta
 import asyncio
 import uuid
-import configparser
-
-config = configparser.ConfigParser()
-config.read('C:\Users\Alen\Documents\GitHub\bbot\config.ini')
-TOKEN = config.get('Credentials', 'TOKEN')
 
 bot = commands.Bot(command_prefix="!", help_command=None, intents=disnake.Intents.all())
 connection = sqlite3.connect('jojo.db')
@@ -443,4 +438,4 @@ async def on_command_error(ctx, error):
 
 
 
-bot.run(TOKEN)
+bot.run("MTEyODY1MDAzNTY0Nzc0NjE4OQ.Gx6jWv.xhRx15vxPyP6jvoB79ozFYvJpGPKRYR4zlzRrU")
