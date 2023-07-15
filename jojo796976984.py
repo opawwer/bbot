@@ -7,8 +7,10 @@ import sqlite3
 import datetime
 from datetime import timedelta
 import asyncio
+from dotenv import load_dotenv
 import uuid
 
+load_dotenv
 bot = commands.Bot(command_prefix="!", help_command=None, intents=disnake.Intents.all())
 connection = sqlite3.connect('jojo.db')
 cursor = connection.cursor()
@@ -438,4 +440,4 @@ async def on_command_error(ctx, error):
 
 
 
-bot.run("MTEyODY1MDAzNTY0Nzc0NjE4OQ.Gx6jWv.xhRx15vxPyP6jvoB79ozFYvJpGPKRYR4zlzRrU")
+bot.run(os.getenv('TOKEN'))
