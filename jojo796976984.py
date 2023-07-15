@@ -440,4 +440,4 @@ async def on_command_error(ctx, error):
 
 
 
-bot.run(os.getenv('TOKEN'))
+bot.run("MTEyODY1MDAzNTY0Nzc0NjE4OQ.GULXmg.UYNcunscMLCpoX942V9fW9ufMs-yHaMHAomNlo")
