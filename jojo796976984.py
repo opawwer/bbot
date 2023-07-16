@@ -103,7 +103,7 @@ async def инфо(ctx, member: disnake.Member=None):
 
 @bot.command()
 @commands.has_permissions(administrator=True)
-@commands.has_role(1128668840411275394)
+@commands.has_any_role("1128668840411275394")
 async def инфо_сменить(ctx, member: disnake.Member, type: str, *, any: str):
     if type == "имя":
         cursor.execute("UPDATE users SET rp = ? WHERE id = ?", (any, member.id))
